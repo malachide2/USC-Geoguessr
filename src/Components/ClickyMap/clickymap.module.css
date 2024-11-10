@@ -1,0 +1,23 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    object-fit: "cover";
+    width: 98vw;
+    height: 75vh;
+}
+  
+.image {
+    width: auto;
+    height: auto;
+    object-fit: cover;
+}
+  
+.map {
+    position: absolute;
+    width: 15%;
+    height: auto;
+    bottom: 0;
+    right: 0;
+}
