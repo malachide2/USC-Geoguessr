@@ -15,8 +15,12 @@ export default function Game() {
     return (
       <div>
         <MainImage/>
-        <ClickyMap/>
-        <PointCounter/>
+        <ClickyMap
+        ClickEvent={clickEvent}
+        />
+        <PointCounter
+        points={points}
+        />
       </div>
     );
   }
