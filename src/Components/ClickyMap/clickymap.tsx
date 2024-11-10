@@ -6,6 +6,7 @@ import styles from "./clickymap.module.css";
 
 interface Props {
   ClickEvent: (event: React.MouseEvent<HTMLImageElement>) => void;
+  ImageTuple: [string, number, number];
 }
 
 const ClickyMap: React.FC<Props> = (props) => {
@@ -20,10 +21,10 @@ const ClickyMap: React.FC<Props> = (props) => {
   return (
     <div className={styles.container}>
       <Image
-        className={styles.image}
-        src="/temp/wall.jpg"
-        alt="Game Image"
-        fill = {true}
+          className={styles.image}
+          src={`/temp/${props.ImageTuple[0]}`}
+          alt="Game Image"
+          fill = {true}
       />
       <Image
         className={styles.map}
