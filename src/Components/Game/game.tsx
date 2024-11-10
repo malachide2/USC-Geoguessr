@@ -20,7 +20,7 @@ export default function Game() {
         <PointCounter
         points={points}
         />
-        <MainImage/>
+        {/* <MainImage/> */}
       </div>
     );
   }
