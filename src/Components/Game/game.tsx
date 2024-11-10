@@ -4,8 +4,19 @@ import ClickyMap from "@/Components/ClickyMap/clickymap";
 import PointCounter from "@/Components/PointCounter/pointcounter";
 import { useState } from "react";
 import styles from "./game.module.css";
+import QuitButton from "../QuitButton/QuitButton";
+import { useRouter } from 'next/navigation';
+
+
 
 export default function Game() {
+  const router = useRouter();
+
+  const QuitGame = () => {
+    router.push('/');
+  };
+  
+  
     const [points, setPoints] = useState(0);
     const [imageIndex, setImageID] = useState(0);
     const unseenImages: [string, number, number][] = [["aidt.jpg", 0, 0], ["debrah.jpg", 0, 1], ["johs.jpg", 1, 0], ["joyec.jpg", 1, 1], ["valria.jpg", 0.5, 0.5]];
@@ -24,6 +35,9 @@ export default function Game() {
       }
     return (
       <div>
+        <div className={styles.QuitButton}>
+        <QuitButton onClick={QuitGame} />
+        </div>
         <ClickyMap
           ClickEvent={clickEvent}
           ImageTuple={currImage}
