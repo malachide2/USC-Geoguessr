@@ -8,9 +8,10 @@ import styles from "./game.module.css";
 export default function Game() {
     const [points, setPoints] = useState(0);
     const [imageIndex, setImageID] = useState(0);
-    const images: [string, number, number][] = [["wall.jpg", 0, 0]];
-    const currImage = images[imageIndex];
+    const unseenImages: [string, number, number][] = [["aidt.jpg", 0, 0], ["debrah.jpg", 0, 1], ["johs.jpg", 1, 0], ["joyec.jpg", 1, 1], ["valria.jpg", 0.5, 0.5]];
+    const currImage = unseenImages[imageIndex];
     const clickyMapMax = 350;
+    let playerSelect = [-1, -1];
     const clickEvent = (event: React.MouseEvent<HTMLImageElement>) => {
         const { offsetX, offsetY } = event.nativeEvent;
         const scaledX = offsetX/clickyMapMax;
@@ -25,7 +26,7 @@ export default function Game() {
       <div>
         <ClickyMap
           ClickEvent={clickEvent}
-          ImageTuple={images[imageIndex]}
+          ImageTuple={currImage}
           ZoomedHeight={clickyMapMax}
         />
         <PointCounter
