@@ -6,6 +6,8 @@ import { useState } from "react";
 import styles from "./game.module.css";
 import QuitButton from "../QuitButton/QuitButton";
 import { useRouter } from 'next/navigation';
+import SubmitButton from "../SubmitButton/SubmitButton";
+import { Yellowtail } from "next/font/google";
 
 
 
@@ -46,6 +48,9 @@ export default function Game() {
       <div>
         <div className={styles.QuitButton}>
         <QuitButton onClick={QuitGame} />
+        </div>
+        <div>
+          <SubmitButton />
         </div>
         <ClickyMap
           ClickEvent={clickEvent}
