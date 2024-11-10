@@ -14,13 +14,13 @@ export default function Game() {
       }
     return (
       <div>
-        <MainImage/>
         <ClickyMap
         ClickEvent={clickEvent}
         />
         <PointCounter
         points={points}
         />
+        <MainImage/>
       </div>
     );
   }
