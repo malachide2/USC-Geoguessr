@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import styles from "./mainimage.module.css";
 
 <div className={styles.container}></div>
@@ -6,10 +7,14 @@ import styles from "./mainimage.module.css";
 const MainImage = () => {
   return (
     <div className={styles.container}>
-      <div className={styles.logo}>Blog</div>
-      <div className={styles.links}></div>
+      <Image
+          className={styles.image}
+          src="/temp/wall.jpg"
+          alt="Game Image"
+          fill = {true}
+      />
     </div>
   )
-}  
+}
   
 export default MainImage;
