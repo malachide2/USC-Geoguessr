@@ -5,10 +5,10 @@ export default function ClickyMap() {
       <div>
         <main>
           <Image
-            src="/map"
-            alt="Next.js logo"
+            src="/clickymap.png"
+            alt="Map of USC"
             width={180}
-            height={38}
+            height={180}
             priority
           />
         </main>

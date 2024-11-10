@@ -1,5 +1,6 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+import ClickyMap from "./Components/ClickyMap/clickymap";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
           priority
         />
       </main>
+      <ClickyMap/>
     </div>
   );
 }
