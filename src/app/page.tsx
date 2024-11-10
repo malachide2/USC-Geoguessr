@@ -14,8 +14,10 @@ export default function Home() {
   };
   return (
     <div className={styles.page}>
+      
       <main className={styles.main}>
-      <div /*className='background-image'*/>
+      <div >
+        
         <h1 className={styles.title}>USC Geoguessr</h1>
            <StartButton onClick={startGame}/>
       </div>

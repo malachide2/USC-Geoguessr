@@ -1,8 +1,9 @@
 .startButton {
-    padding: 120px 100px; 
+    padding: 10px 24px; 
     display: flex;
-    font-size: 200px;
-    color: yellow;
-
+    font-size: 20px;
+    background-color: orange;
+    border-radius: 8px;
+    
   }
   

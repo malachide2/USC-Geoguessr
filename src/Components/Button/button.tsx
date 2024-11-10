@@ -8,7 +8,7 @@ interface StartButtonProps {
 
 const StartButton: React.FC<StartButtonProps> = ({ onClick }) => {
     return (
-        <button onClick={onClick} className="startButton">
+        <button onClick={onClick} className={styles.startButton}>
             Start!
         </button>
     );
