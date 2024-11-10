@@ -11,7 +11,7 @@
 }  
 
 .background-image {
-  background-image: url('https://live.staticflickr.com/65535/50326773388_daae5751ca_h.jpg');
+  /* background-image: url('https://live.staticflickr.com/65535/50326773388_daae5751ca_h.jpg'); */
   background-size: cover;
   background-position: center;
   height: 100vh;
