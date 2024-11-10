@@ -9,6 +9,7 @@ interface Props {
   ImageTuple: [string, number, number];
   ZoomedHeight: number
   PlayerInput: number[];
+  Submitted: boolean;
 }
 
 const ClickyMap: React.FC<Props> = (props) => {
@@ -50,20 +51,24 @@ const ClickyMap: React.FC<Props> = (props) => {
             className={styles.targetMarker}
             src='/marker.png'
             alt='marker'
-            width={10}
-            height={10}
-            style={{ bottom: `${props.ZoomedHeight - props.ImageTuple[2]*props.ZoomedHeight}px`, right: `${props.ZoomedHeight - props.ImageTuple[1]*props.ZoomedHeight}px`}}
+            width={markerSize}
+            height={markerSize}
+            style={{ 
+              bottom: `${props.ZoomedHeight - props.ImageTuple[2]*props.ZoomedHeight}px`, 
+              right: `${props.ZoomedHeight - props.ImageTuple[1]*props.ZoomedHeight}px`,
+              display: isHovering ? (props.Submitted ? 'block' : 'none') : 'none'
+            }}
           />
           <Image
             className={styles.playerMarker}
-            src='/marker.png'
+            src='/marker2.png'
             alt='marker'
             width={markerSize}
             height={markerSize}
             style={{ 
               bottom: `${props.ZoomedHeight - props.PlayerInput[1]*props.ZoomedHeight}px`, 
               right: `${props.ZoomedHeight - props.PlayerInput[0]*props.ZoomedHeight - markerSize/2}px`,
-              display: props.PlayerInput[0] + props.PlayerInput[1] >= 0 ? 'true' : 'false'
+              display: isHovering ? (props.PlayerInput[0] + props.PlayerInput[1] >= 0 ? 'block' : 'none') : 'none'
             }}
           />
         </div>
