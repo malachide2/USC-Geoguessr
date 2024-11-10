@@ -3,7 +3,7 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    object-fit: "cover";
+    object-fit: cover;
     width: 98vw;
     height: 75vh;
 }
