@@ -7,6 +7,7 @@ import styles from "./clickymap.module.css";
 interface Props {
   ClickEvent: (event: React.MouseEvent<HTMLImageElement>) => void;
   ImageTuple: [string, number, number];
+  ZoomedHeight: number
 }
 
 const ClickyMap: React.FC<Props> = (props) => {
@@ -35,7 +36,7 @@ const ClickyMap: React.FC<Props> = (props) => {
         onClick={props.ClickEvent}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        style={{ width: isHovering ? '30%' : '15%',  opacity: isHovering ? '1' : '0.75'}}
+        style={{ width: isHovering ? `${props.ZoomedHeight}px` : '15%',  opacity: isHovering ? '1' : '0.75'}}
         priority
       />
     </div>

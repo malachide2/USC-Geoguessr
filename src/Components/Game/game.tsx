@@ -8,12 +8,13 @@ import styles from "./game.module.css";
 export default function Game() {
     const [points, setPoints] = useState(0);
     const [imageIndex, setImageID] = useState(0);
-    const images: [string, number, number][] = [["wall.jpg", 0.5, 0.5]];
-    const currImage = images[imageIndex]
+    const images: [string, number, number][] = [["wall.jpg", 0, 0]];
+    const currImage = images[imageIndex];
+    const clickyMapMax = 350;
     const clickEvent = (event: React.MouseEvent<HTMLImageElement>) => {
         const { offsetX, offsetY } = event.nativeEvent;
-        const scaledX = offsetX/360;
-        const scaledY = offsetY/360;
+        const scaledX = offsetX/clickyMapMax;
+        const scaledY = offsetY/clickyMapMax;
         const distance = Math.sqrt((scaledX - currImage[1])*(scaledX - currImage[1]) + (scaledY - currImage[2])*(scaledY - currImage[2]))
         console.log(`${offsetX} ${offsetY}`);
         console.log(`${scaledX} ${scaledY}`);
@@ -25,6 +26,7 @@ export default function Game() {
         <ClickyMap
           ClickEvent={clickEvent}
           ImageTuple={images[imageIndex]}
+          ZoomedHeight={clickyMapMax}
         />
         <PointCounter
           points={points}
