@@ -2,6 +2,7 @@
 
 import ClickyMap from "@/Components/ClickyMap/clickymap";
 import PointCounter from "@/Components/PointCounter/pointcounter";
+import MainImage from "@/Components/MainImage/MainImage";
 import { useState } from "react";
 
 export default function Game() {
@@ -13,12 +14,9 @@ export default function Game() {
       }
     return (
       <div>
-        <ClickyMap
-        ClickEvent={clickEvent}
-        />
-        <PointCounter
-        points={points}
-        />
+        <MainImage/>
+        <ClickyMap/>
+        <PointCounter/>
       </div>
     );
   }
