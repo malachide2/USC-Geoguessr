@@ -19,10 +19,10 @@ export default function Game() {
   
     const [points, setPoints] = useState(0);
     const [imageIndex, setImageID] = useState(0);
-    const unseenImages: [string, number, number][] = [["aidt.jpg", 0, 0], ["debrah.jpg", 0, 1], ["johs.jpg", 1, 0], ["joyec.jpg", 1, 1], ["valria.jpg", 0.5, 0.5]];
+    const unseenImages: [string, number, number][] = [["aidt.jpg", 0.2, 0.5], ["debrah.jpg", 0, 1], ["johs.jpg", 1, 0], ["joyec.jpg", 1, 1], ["valria.jpg", 0.5, 0.5]];
     const currImage = unseenImages[imageIndex];
     const clickyMapMax = 350;
-    let [playerSelect, updatePlayerSelect] = useState([-1, -1]);
+    let [playerSelect, updatePlayerSelect] = useState([50, 50]);
     const clickEvent = (event: React.MouseEvent<HTMLImageElement>) => {
         const { offsetX, offsetY } = event.nativeEvent;
         const scaledX = offsetX/clickyMapMax;
@@ -31,7 +31,9 @@ export default function Game() {
         console.log(`${offsetX} ${offsetY}`);
         console.log(`${scaledX} ${scaledY}`);
         console.log(`${distance}`);
-        setPoints(Math.floor(1000*(Math.SQRT2 - distance)/Math.SQRT2))
+        setPoints(Math.floor(1000*(Math.SQRT2 - distance)/Math.SQRT2));
+        updatePlayerSelect([scaledX, scaledY]);
+        console.log(playerSelect, "player select");
       }
     return (
       <div>
@@ -42,6 +44,7 @@ export default function Game() {
           ClickEvent={clickEvent}
           ImageTuple={currImage}
           ZoomedHeight={clickyMapMax}
+          PlayerInput={playerSelect}
         />
         <PointCounter
           points={points}

@@ -8,6 +8,7 @@ interface Props {
   ClickEvent: (event: React.MouseEvent<HTMLImageElement>) => void;
   ImageTuple: [string, number, number];
   ZoomedHeight: number
+  PlayerInput: number[];
 }
 
 const ClickyMap: React.FC<Props> = (props) => {
@@ -19,6 +20,10 @@ const ClickyMap: React.FC<Props> = (props) => {
   const handleMouseLeave = () => {
     setIsHovering(false);
   };
+
+  const markerSize = 20;
+
+
   return (
     <div className={styles.container}>
         <Image
@@ -42,11 +47,24 @@ const ClickyMap: React.FC<Props> = (props) => {
             priority
           />
           <Image
-            className={styles.marker}
+            className={styles.targetMarker}
             src='/marker.png'
             alt='marker'
-            width={20}
-            height={20}
+            width={10}
+            height={10}
+            style={{ bottom: `${props.ZoomedHeight - props.ImageTuple[2]*props.ZoomedHeight}px`, right: `${props.ZoomedHeight - props.ImageTuple[1]*props.ZoomedHeight}px`}}
+          />
+          <Image
+            className={styles.playerMarker}
+            src='/marker.png'
+            alt='marker'
+            width={markerSize}
+            height={markerSize}
+            style={{ 
+              bottom: `${props.ZoomedHeight - props.PlayerInput[1]*props.ZoomedHeight}px`, 
+              right: `${props.ZoomedHeight - props.PlayerInput[0]*props.ZoomedHeight - markerSize/2}px`,
+              display: props.PlayerInput[0] + props.PlayerInput[1] >= 0 ? 'true' : 'false'
+            }}
           />
         </div>
       </div>
