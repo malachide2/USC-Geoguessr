@@ -11,11 +11,9 @@ import { useRouter } from 'next/navigation';
 
 export default function Game() {
   const unseenImages: [string, number, number][] = [
-    ["aidt.jpg", 0.2, 0.5],
-    ["debrah.jpg", 0, 1],
-    ["johs.jpg", 1, 0],
-    ["joyec.jpg", 1, 1],
-    ["valria.jpg", 0.5, 0.5]];
+    ["1.jpeg", 0.57, 0.61],
+    ["2.jpeg", 0.52, 0.65],
+    ["3.jpeg", 1, 0]];
   
   const router = useRouter();
 

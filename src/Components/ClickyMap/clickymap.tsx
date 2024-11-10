@@ -28,7 +28,7 @@ const ClickyMap: React.FC<Props> = (props) => {
     <div className={styles.container}>
         <Image
             className={styles.image}
-            src={`/temp/${props.ImageTuple[0]}`}
+            src={`/location-imgs/${props.ImageTuple[0]}`}
             alt="Game Image"
             fill = {true}
         />
