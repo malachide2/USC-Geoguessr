@@ -2,11 +2,11 @@
 
 import Image from "next/image";
 
-export default function ClickyMap() {
-  const clickEvent = (event: React.MouseEvent) => {
-    const { offsetX, offsetY } = event.nativeEvent;
-    console.log(`${offsetX} ${offsetY}`);
-  }
+interface Props {
+  ClickEvent: (event: React.MouseEvent<HTMLImageElement>) => void;
+}
+
+const ClickyMap: React.FC<Props> = (props) => {
   return (
     <div>
       <main>
@@ -15,10 +15,12 @@ export default function ClickyMap() {
           alt="Map of USC"
           width={180}
           height={180}
-          onClick={clickEvent}
+          onClick={props.ClickEvent}
           priority
         />
       </main>
     </div>
   );
-  }
+}
+
+export default ClickyMap;

@@ -1,4 +1,4 @@
-export default function PointCounter({ points=0 }) {
+export default function PointCounter({ points=0 }: {points: number}) {
     return (
         <div>
             <main>
