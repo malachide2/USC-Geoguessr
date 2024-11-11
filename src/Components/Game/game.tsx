@@ -13,9 +13,10 @@ import { Yellowtail } from "next/font/google";
 
 export default function Game() {
   const unseenImages: [string, number, number][] = [
-    ["1.jpeg", 0.57, 0.61],
-    ["2.jpeg", 0.52, 0.65],
-    ["3.jpeg", 1, 0]];
+    ["67.png", 0.65, 0.703],
+    ["68.png", 0.62, 0.5],
+    ["69.png", 0.62, 0.537]];
+    
   
   const router = useRouter();
 
