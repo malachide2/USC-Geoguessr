@@ -26,6 +26,9 @@ export default function Game() {
   
     const [points, setPoints] = useState(0);
     const [imageIndex, setImageID] = useState(0);
+    const [submitted, setSubmitted] = useState(false);
+
+    let unseenImages: [string, number, number][] = [["aidt.jpg", 0.2, 0.5], ["debrah.jpg", 0.5, 0.5], ["johs.jpg", 0.5, 0.5], ["joyec.jpg", 0.5, 0.5], ["valria.jpg", 0.5, 0.5]];
     let currImage = unseenImages[imageIndex];
     const clickyMapMax = 350;
     let [playerSelect, updatePlayerSelect] = useState([-1, -1]);
@@ -38,11 +41,16 @@ export default function Game() {
         console.log(playerSelect, "player select");
       }
     const submitPress = () => {
+        setSubmitted(true);
         const scaledX = playerSelect[0];
         const scaledY = playerSelect[1];
         const distance = Math.sqrt((scaledX - currImage[1])*(scaledX - currImage[1]) + (scaledY - currImage[2])*(scaledY - currImage[2]));
         console.log(distance, "distance");
         setPoints(points + Math.floor(1000*(Math.SQRT2 - distance)/Math.SQRT2));
+    }
+
+    const nextfunc = () => {
+        setSubmitted(false);
         setImageID(Math.floor(Math.random()*unseenImages.length));
         currImage = unseenImages[imageIndex];
     }
@@ -56,12 +64,14 @@ export default function Game() {
           onClick={submitPress}
           />
         </div>
+        <button onClick={nextfunc}>
+        </button>
         <ClickyMap
           ClickEvent={clickEvent}
           ImageTuple={currImage}
           ZoomedHeight={clickyMapMax}
           PlayerInput={playerSelect}
-          Submitted={true}
+          Submitted={submitted}
         />
         <PointCounter
           points={points}
