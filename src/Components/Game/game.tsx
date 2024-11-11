@@ -27,8 +27,6 @@ export default function Game() {
     const [points, setPoints] = useState(0);
     const [imageIndex, setImageID] = useState(0);
     const [submitted, setSubmitted] = useState(false);
-
-    let unseenImages: [string, number, number][] = [["aidt.jpg", 0.2, 0.5], ["debrah.jpg", 0.5, 0.5], ["johs.jpg", 0.5, 0.5], ["joyec.jpg", 0.5, 0.5], ["valria.jpg", 0.5, 0.5]];
     let currImage = unseenImages[imageIndex];
     const clickyMapMax = 350;
     let [playerSelect, updatePlayerSelect] = useState([-1, -1]);
