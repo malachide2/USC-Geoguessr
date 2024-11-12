@@ -35,7 +35,11 @@ const ClickyMap: React.FC<Props> = (props) => {
         />
         <div 
           className={styles.mapContainer}
-          style={{ width: isHovering ? `${props.ZoomedHeight}px` : '10rem',  opacity: isHovering ? '1' : '0.75', height: isHovering ? `${props.ZoomedHeight}px` : '10rem'}}
+          style={{
+            width: isHovering ? `${props.ZoomedHeight}px` : '10rem',
+            height: isHovering ? `${props.ZoomedHeight}px` : '10rem',
+            opacity: isHovering ? '1' : '0.75'
+          }}
         >
           <Image
             className={styles.map}
@@ -49,8 +53,8 @@ const ClickyMap: React.FC<Props> = (props) => {
           />
           <Image
             className={styles.targetMarker}
-            src='/marker.png'
-            alt='marker'
+            src='/targetmarker.png'
+            alt='targetmarker'
             width={markerSize}
             height={markerSize}
             style={{ 
@@ -61,7 +65,7 @@ const ClickyMap: React.FC<Props> = (props) => {
           />
           <Image
             className={styles.playerMarker}
-            src='/marker2.png'
+            src='/marker.png'
             alt='marker'
             width={markerSize}
             height={markerSize}

@@ -1,9 +1,8 @@
-.page{
-
+.CommandConsole {
+    display: flex;
+    justify-content: space-between;
 }
 
-.QuitButton{
-    bottom:20px;
-    right:20px;
+.Buttons {
+    display: flex;
 }
-

@@ -4,77 +4,87 @@ import ClickyMap from "@/Components/ClickyMap/clickymap";
 import PointCounter from "@/Components/PointCounter/pointcounter";
 import { useState } from "react";
 import styles from "./game.module.css";
-import QuitButton from "../QuitButton/QuitButton";
+import QuitButton from "../QuitButton/quitbutton";
+import SubmitButton from "../SubmitButton/submitbutton";
+import NextButton from "../NextButton/nextbutton";
 import { useRouter } from 'next/navigation';
-import SubmitButton from "../SubmitButton/SubmitButton";
-import { Yellowtail } from "next/font/google";
+import { images } from "./images";
+
+
+
+
+let seenImages: number[] = [];
+function GetNewImageIndex() {
+  if (seenImages.length == images.length) { // If all images have been seen, reset the list
+    seenImages = [];
+  }
+
+  let randomIndex = Math.floor(Math.random()*images.length);
+  while (seenImages.includes(randomIndex)) { // Find a unique image
+    randomIndex = Math.floor(Math.random()*images.length);
+  }
+
+  seenImages.push(randomIndex);
+  return randomIndex;
+}
 
 
 
 export default function Game() {
-  const unseenImages: [string, number, number][] = [
-    ["67.png", 0.65, 0.703],
-    ["68.png", 0.62, 0.5],
-    ["69.png", 0.62, 0.537]];
-    
-  
   const router = useRouter();
 
   const QuitGame = () => {
     router.push('/');
   };
-  
-  
-    const [points, setPoints] = useState(0);
-    const [imageIndex, setImageID] = useState(0);
-    const [submitted, setSubmitted] = useState(false);
-    let currImage = unseenImages[imageIndex];
-    const clickyMapMax = 350;
-    let [playerSelect, updatePlayerSelect] = useState([-1, -1]);
-    const clickEvent = (event: React.MouseEvent<HTMLImageElement>) => {
-        const { offsetX, offsetY } = event.nativeEvent;
-        const scaledX = offsetX/clickyMapMax;
-        const scaledY = offsetY/clickyMapMax;
-        
-        updatePlayerSelect([scaledX, scaledY]);
-        console.log(playerSelect, "player select");
-      }
-    const submitPress = () => {
-        setSubmitted(true);
-        const scaledX = playerSelect[0];
-        const scaledY = playerSelect[1];
-        const distance = Math.sqrt((scaledX - currImage[1])*(scaledX - currImage[1]) + (scaledY - currImage[2])*(scaledY - currImage[2]));
-        console.log(distance, "distance");
-        setPoints(points + Math.floor(1000*(Math.SQRT2 - distance)/Math.SQRT2));
-    }
 
-    const nextfunc = () => {
-        setSubmitted(false);
-        setImageID(Math.floor(Math.random()*unseenImages.length));
-        currImage = unseenImages[imageIndex];
-    }
-    return (
-      <div>
-        <div className={styles.QuitButton}>
-        <QuitButton onClick={QuitGame} />
-        </div>
-        <div>
-          <SubmitButton 
-          onClick={submitPress}
-          />
-        </div>
-        <button onClick={nextfunc}>
-        </button>
-        <ClickyMap
-          ClickEvent={clickEvent}
-          ImageTuple={currImage}
-          ZoomedHeight={clickyMapMax}
-          PlayerInput={playerSelect}
-          Submitted={submitted}
-        />
-        <PointCounter
-          points={points}
-        />
-      </div>
-    );
+  const [points, setPoints] = useState(0);
+  const [imageIndex, setImageID] = useState(GetNewImageIndex());
+  const [submitted, setSubmitted] = useState(false);
+  let currImage = images[imageIndex];
+  const clickyMapMax = 350;
+  let [playerSelect, updatePlayerSelect] = useState([-1, -1]);
+  const clickEvent = (event: React.MouseEvent<HTMLImageElement>) => {
+    const { offsetX, offsetY } = event.nativeEvent;
+    const scaledX = offsetX/clickyMapMax;
+    const scaledY = offsetY/clickyMapMax;
+      
+    updatePlayerSelect([scaledX, scaledY]);
+    console.log(playerSelect, "player select");
   }
+  const submitPress = () => {
+    setSubmitted(true);
+    const scaledX = playerSelect[0];
+    const scaledY = playerSelect[1];
+    const distance = Math.sqrt((scaledX - currImage[1])*(scaledX - currImage[1]) + (scaledY - currImage[2])*(scaledY - currImage[2]));
+    console.log(distance, "distance");
+    // The earnedPoints equation is derived from 30 minutes of pure Desmos Willpower (it works really well)
+    const earnedPoints = Math.floor(1000 / (Math.pow(1.05, distance * 100) - Math.sqrt(distance)));
+    setPoints(points + earnedPoints);
+  }
+
+  const nextPress = () => {
+    setSubmitted(false);
+    setImageID(GetNewImageIndex());
+    currImage = images[imageIndex];
+  }
+
+  return (
+    <div>
+      <ClickyMap
+        ClickEvent={clickEvent}
+        ImageTuple={currImage}
+        ZoomedHeight={clickyMapMax}
+        PlayerInput={playerSelect}
+        Submitted={submitted}
+      />
+      <div className={styles.CommandConsole}>
+        <PointCounter points={points} />
+        <div className={styles.Buttons}>
+          <SubmitButton onClick={submitPress} />
+          <NextButton onClick={nextPress} />
+          <QuitButton onClick={QuitGame} />
+        </div>
+      </div>
+    </div>
+  );
+}

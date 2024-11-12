@@ -1,10 +1,8 @@
 .QuitButton {
-    padding: 10px 24px; 
-    display: flex;
-    font-size: 20px;
-    background-color: red;
-    border-radius: 8px; 
-    
-    
-  }
-  
+  padding: 10px 24px; 
+  display: flex;
+  font-size: 20px;
+  background-color: red;
+  border-radius: 8px; 
+  margin: 0.5rem;
+}

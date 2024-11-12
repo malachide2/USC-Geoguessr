@@ -3,7 +3,7 @@ import React from 'react'
 import Image from "next/image";
 import styles from "./page.module.css";
 import Game from "@/Components/Game/game";
-import StartButton from '@/Components/Button/button';
+import StartButton from '@/Components/StartButton/startbutton';
 import { useRouter } from 'next/navigation';
 
 export default function Home() {
