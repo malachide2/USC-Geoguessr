@@ -66,6 +66,7 @@ export default function Game() {
     setSubmitted(false);
     setImageID(GetNewImageIndex());
     currImage = images[imageIndex];
+    updatePlayerSelect([-1, -1]);
   }
 
   return (
@@ -80,7 +81,7 @@ export default function Game() {
       <div className={styles.CommandConsole}>
         <PointCounter points={points} />
         <div className={styles.Buttons}>
-          <SubmitButton onClick={submitPress} />
+          <SubmitButton onClick={submitPress} Submitted={submitted} />
           <NextButton onClick={nextPress} />
           <QuitButton onClick={QuitGame} />
         </div>
