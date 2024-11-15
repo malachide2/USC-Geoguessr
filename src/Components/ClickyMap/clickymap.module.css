@@ -3,9 +3,9 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    object-fit: cover;
-    width: 98vw;
+    width: auto;
     height: 75vh;
+    margin: auto;
 }
   
 .image {
