@@ -2,7 +2,7 @@
 
 import ClickyMap from "@/Components/ClickyMap/clickymap";
 import PointCounter from "@/Components/PointCounter/pointcounter";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./game.module.css";
 import QuitButton from "../QuitButton/QuitButton";
 import SubmitButton from "../SubmitButton/SubmitButton";
@@ -13,36 +13,36 @@ import { images } from "./images";
 
 
 
-let seenImages: number[] = [];
-function GetNewImageIndex() {
-  if (seenImages.length == images.length) { // If all images have been seen, reset the list
-    seenImages = [];
-  }
-
-  let randomIndex = Math.floor(Math.random()*images.length);
-  while (seenImages.includes(randomIndex)) { // Find a unique image
-    randomIndex = Math.floor(Math.random()*images.length);
-  }
-
-  seenImages.push(randomIndex);
-  return randomIndex;
-}
-
-
-
 export default function Game() {
   const router = useRouter();
 
-  const QuitGame = () => {
-    router.push('/');
-  };
-
+  const [seenImages, setSeenImages] = useState<number[]>([]);
   const [points, setPoints] = useState(0);
-  const [imageIndex, setImageID] = useState(GetNewImageIndex());
+  const [imageIndex, setImageID] = useState(Math.floor(Math.random()*images.length));
   const [submitted, setSubmitted] = useState(false);
+  let [playerSelect, updatePlayerSelect] = useState([-1, -1]);
+
   let currImage = images[imageIndex];
   const clickyMapMax = 350;
-  let [playerSelect, updatePlayerSelect] = useState([-1, -1]);
+
+
+  const RandomizeImageIndex = () => {
+    seenImages.push(imageIndex);
+    let randomIndex = Math.floor(Math.random()*images.length);
+
+    if (seenImages.length == images.length) { // If all images have been seen, reset the list
+      setSeenImages([]);
+      setImageID(randomIndex);
+      return;
+    }
+    while (seenImages.includes(randomIndex)) { // Find a unique image
+      randomIndex = Math.floor(Math.random()*images.length);
+    }
+    setSeenImages(seenImages);
+    setImageID(randomIndex)
+    return;
+  }
+
   const clickEvent = (event: React.MouseEvent<HTMLImageElement>) => {
     const { offsetX, offsetY } = event.nativeEvent;
     const scaledX = offsetX/clickyMapMax;
@@ -51,6 +51,7 @@ export default function Game() {
     updatePlayerSelect([scaledX, scaledY]);
     console.log(playerSelect, "player select");
   }
+
   const submitPress = () => {
     setSubmitted(true);
     const scaledX = playerSelect[0];
@@ -64,10 +65,14 @@ export default function Game() {
 
   const nextPress = () => {
     setSubmitted(false);
-    setImageID(GetNewImageIndex());
+    RandomizeImageIndex();
     currImage = images[imageIndex];
     updatePlayerSelect([-1, -1]);
   }
+
+  const QuitGame = () => {
+    router.push('/');
+  };
 
   return (
     <div>
