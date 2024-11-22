@@ -7,6 +7,7 @@ import styles from "./game.module.css";
 import QuitButton from "../QuitButton/QuitButton";
 import SubmitButton from "../SubmitButton/SubmitButton";
 import NextButton from "../NextButton/nextbutton";
+import RoundCounter from "../RoundCounter/roundcounter";
 import { useRouter } from 'next/navigation';
 import { images } from "./images";
 
@@ -21,6 +22,7 @@ export default function Game() {
   const [imageIndex, setImageID] = useState(Math.floor(Math.random()*images.length));
   const [submitted, setSubmitted] = useState(false);
   let [playerSelect, updatePlayerSelect] = useState([-1, -1]);
+  const [roundNumber, setRoundNumber] = useState(1);
 
   let currImage = images[imageIndex];
   const clickyMapMax = 350;
@@ -65,6 +67,7 @@ export default function Game() {
   }
 
   const nextPress = () => {
+    setRoundNumber(roundNumber + 1);
     setSubmitted(false);
     RandomizeImageIndex();
     currImage = images[imageIndex];
@@ -85,13 +88,14 @@ export default function Game() {
         Submitted={submitted}
       />
       <div className={styles.CommandConsole}>
-        <PointCounter points={points} />
+        <RoundCounter round={roundNumber} />
         <div className={styles.Buttons}>
           <SubmitButton onClick={submitPress} Submitted={submitted} />
           <NextButton onClick={nextPress} />
           <QuitButton onClick={QuitGame} />
         </div>
       </div>
+      <PointCounter points={points} />
     </div>
   );
 }
