@@ -10,6 +10,7 @@ interface Props {
   ZoomedHeight: number;
   PlayerInput: number[];
   Submitted: boolean;
+  LastPoints: number;
 }
 
 const ClickyMap: React.FC<Props> = (props) => {
@@ -51,6 +52,7 @@ const ClickyMap: React.FC<Props> = (props) => {
             fill={true}
             priority
           />
+          <p className={styles.pointsEarned} style={{display: props.Submitted ? "block" : "none"}} >+{props.LastPoints} Points</p>
           <Image
             className={styles.targetMarker}
             src='/targetmarker.png'

@@ -23,6 +23,7 @@ export default function Game() {
   const [submitted, setSubmitted] = useState(false);
   let [playerSelect, updatePlayerSelect] = useState([-1, -1]);
   const [roundNumber, setRoundNumber] = useState(1);
+  const [lastPoints, setLastPoints] = useState(-1);
 
   let currImage = images[imageIndex];
   const clickyMapMax = 350;
@@ -64,6 +65,7 @@ export default function Game() {
     // The earnedPoints equation is derived from 30 minutes of pure Desmos Willpower (it works really well)
     const earnedPoints = Math.floor(1000 / (Math.pow(1.05, distance * 100) - Math.sqrt(distance)));
     setPoints(points + earnedPoints);
+    setLastPoints(earnedPoints);
   }
 
   const nextPress = () => {
@@ -86,6 +88,7 @@ export default function Game() {
         ZoomedHeight={clickyMapMax}
         PlayerInput={playerSelect}
         Submitted={submitted}
+        LastPoints={lastPoints}
       />
       <div className={styles.CommandConsole}>
         <RoundCounter round={roundNumber} />
