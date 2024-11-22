@@ -7,7 +7,7 @@ import styles from "./clickymap.module.css";
 interface Props {
   ClickEvent: (event: React.MouseEvent<HTMLImageElement>) => void;
   ImageTuple: [string, number, number];
-  ZoomedHeight: number
+  ZoomedHeight: number;
   PlayerInput: number[];
   Submitted: boolean;
 }
@@ -36,9 +36,9 @@ const ClickyMap: React.FC<Props> = (props) => {
         <div 
           className={styles.mapContainer}
           style={{
-            width: isHovering ? `${props.ZoomedHeight}px` : '10rem',
-            height: isHovering ? `${props.ZoomedHeight}px` : '10rem',
-            opacity: isHovering ? '1' : '0.75'
+            width: (isHovering || props.Submitted) ? `${props.ZoomedHeight}px` : '10rem',
+            height: (isHovering || props.Submitted) ? `${props.ZoomedHeight}px` : '10rem',
+            opacity: (isHovering || props.Submitted) ? '1' : '0.75'
           }}
         >
           <Image
@@ -60,7 +60,7 @@ const ClickyMap: React.FC<Props> = (props) => {
             style={{ 
               bottom: `${props.ZoomedHeight - props.ImageTuple[2]*props.ZoomedHeight}px`, 
               right: `${props.ZoomedHeight - props.ImageTuple[1]*props.ZoomedHeight}px`,
-              display: isHovering ? (props.Submitted ? 'block' : 'none') : 'none'
+              display: (isHovering || props.Submitted) ? (props.Submitted ? 'block' : 'none') : 'none'
             }}
           />
           <Image
@@ -72,7 +72,7 @@ const ClickyMap: React.FC<Props> = (props) => {
             style={{ 
               bottom: `${props.ZoomedHeight - props.PlayerInput[1]*props.ZoomedHeight}px`, 
               right: `${props.ZoomedHeight - props.PlayerInput[0]*props.ZoomedHeight - markerSize/2}px`,
-              display: isHovering ? (props.PlayerInput[0] + props.PlayerInput[1] >= 0 ? 'block' : 'none') : 'none'
+              display: (isHovering || props.Submitted) ? (props.PlayerInput[0] + props.PlayerInput[1] >= 0 ? 'block' : 'none') : 'none'
             }}
           />
         </div>

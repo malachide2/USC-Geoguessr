@@ -44,6 +44,7 @@ export default function Game() {
   }
 
   const clickEvent = (event: React.MouseEvent<HTMLImageElement>) => {
+    if (submitted) return; //don't allow to change marker if submitted already
     const { offsetX, offsetY } = event.nativeEvent;
     const scaledX = offsetX/clickyMapMax;
     const scaledY = offsetY/clickyMapMax;
