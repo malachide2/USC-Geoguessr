@@ -8,7 +8,7 @@ import QuitButton from "../QuitButton/QuitButton";
 import SubmitButton from "../SubmitButton/SubmitButton";
 import NextButton from "../NextButton/nextbutton";
 import RoundCounter from "../RoundCounter/roundcounter";
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { images } from "./images";
 
 
@@ -16,6 +16,7 @@ import { images } from "./images";
 
 export default function Game() {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const [seenImages, setSeenImages] = useState<number[]>([]);
   const [points, setPoints] = useState(0);
@@ -24,6 +25,7 @@ export default function Game() {
   let [playerSelect, updatePlayerSelect] = useState([-1, -1]);
   const [roundNumber, setRoundNumber] = useState(1);
   const [lastPoints, setLastPoints] = useState(-1);
+  const maxRounds = 5;
 
   let currImage = images[imageIndex];
   const clickyMapMax = 350;
@@ -69,6 +71,16 @@ export default function Game() {
   }
 
   const nextPress = () => {
+    if (roundNumber >= maxRounds) {
+      //const params = new URLSearchParams(searchParams);
+      //params.set('score', points.toString());
+      sessionStorage.setItem('score', points.toString());
+      sessionStorage.setItem('rounds', roundNumber.toString());
+      router.push('/EndScreen');
+      return;
+    }
+
+
     setRoundNumber(roundNumber + 1);
     setSubmitted(false);
     RandomizeImageIndex();
