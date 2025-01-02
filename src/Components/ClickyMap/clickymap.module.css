@@ -4,7 +4,7 @@
     justify-content: center;
     position: relative;
     width: auto;
-    height: 75vh;
+    height: 80vh;
     margin: auto;
 }
   
@@ -34,4 +34,10 @@
     position: absolute;
     opacity: 1;
     pointer-events: none;
+}
+
+.pointsEarned {
+    position: absolute;
+    bottom: 90%;
+    left: 2%;
 }

@@ -7,7 +7,8 @@ import styles from "./game.module.css";
 import QuitButton from "../QuitButton/quitbutton";
 import SubmitButton from "../SubmitButton/SubmitButton";
 import NextButton from "../NextButton/nextbutton";
-import { useRouter } from 'next/navigation';
+import RoundCounter from "../RoundCounter/roundcounter";
+import { useRouter, useSearchParams } from 'next/navigation';
 import { images } from "./images";
 
 
@@ -15,12 +16,16 @@ import { images } from "./images";
 
 export default function Game() {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const [seenImages, setSeenImages] = useState<number[]>([]);
   const [points, setPoints] = useState(0);
   const [imageIndex, setImageID] = useState(Math.floor(Math.random()*images.length));
   const [submitted, setSubmitted] = useState(false);
   let [playerSelect, updatePlayerSelect] = useState([-1, -1]);
+  const [roundNumber, setRoundNumber] = useState(1);
+  const [lastPoints, setLastPoints] = useState(-1);
+  const maxRounds = 5;
 
   let currImage = images[imageIndex];
   const clickyMapMax = 350;
@@ -44,6 +49,7 @@ export default function Game() {
   }
 
   const clickEvent = (event: React.MouseEvent<HTMLImageElement>) => {
+    if (submitted) return; //don't allow to change marker if submitted already
     const { offsetX, offsetY } = event.nativeEvent;
     const scaledX = offsetX/clickyMapMax;
     const scaledY = offsetY/clickyMapMax;
@@ -61,9 +67,21 @@ export default function Game() {
     // The earnedPoints equation is derived from 30 minutes of pure Desmos Willpower (it works really well)
     const earnedPoints = Math.floor(1000 / (Math.pow(1.05, distance * 100) - Math.sqrt(distance)));
     setPoints(points + earnedPoints);
+    setLastPoints(earnedPoints);
   }
 
   const nextPress = () => {
+    if (roundNumber >= maxRounds) {
+      //const params = new URLSearchParams(searchParams);
+      //params.set('score', points.toString());
+      sessionStorage.setItem('score', points.toString());
+      sessionStorage.setItem('rounds', roundNumber.toString());
+      router.push('/EndScreen');
+      return;
+    }
+
+
+    setRoundNumber(roundNumber + 1);
     setSubmitted(false);
     RandomizeImageIndex();
     currImage = images[imageIndex];
@@ -82,15 +100,17 @@ export default function Game() {
         ZoomedHeight={clickyMapMax}
         PlayerInput={playerSelect}
         Submitted={submitted}
+        LastPoints={lastPoints}
       />
       <div className={styles.CommandConsole}>
-        <PointCounter points={points} />
+        <RoundCounter round={roundNumber} />
         <div className={styles.Buttons}>
           <SubmitButton onClick={submitPress} Submitted={submitted} />
           <NextButton onClick={nextPress} />
           <QuitButton onClick={QuitGame} />
         </div>
       </div>
+      <PointCounter points={points} />
     </div>
   );
 }
