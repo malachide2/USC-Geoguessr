@@ -4,7 +4,7 @@ import ClickyMap from "@/Components/ClickyMap/clickymap";
 import PointCounter from "@/Components/PointCounter/pointcounter";
 import { useState, useEffect } from "react";
 import styles from "./game.module.css";
-import QuitButton from "../QuitButton/QuitButton";
+import QuitButton from "../QuitButton/quitbutton";
 import SubmitButton from "../SubmitButton/SubmitButton";
 import NextButton from "../NextButton/nextbutton";
 import { useRouter } from 'next/navigation';
